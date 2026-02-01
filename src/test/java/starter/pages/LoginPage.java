@@ -32,6 +32,10 @@ public class LoginPage extends PageObject {
     }
 
     public void verifySuccessfulLogin() {
+        // Wait for the URL to contain "/ui/dashboard" to ensure redirection has
+        // happened
+        waitFor(org.openqa.selenium.support.ui.ExpectedConditions.urlContains("/ui/dashboard"));
+
         String currentUrl = getDriver().getCurrentUrl();
         // After successful login, we should be on the dashboard page
         if (!currentUrl.contains("/ui/dashboard")) {
@@ -44,6 +48,6 @@ public class LoginPage extends PageObject {
         String currentUrl = getDriver().getCurrentUrl();
         if (!currentUrl.contains("/ui/login")) {
             throw new AssertionError("Not on login page - expected to stay on login page after failed login");
-        }   
+        }
     }
 }
