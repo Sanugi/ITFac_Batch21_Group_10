@@ -1,9 +1,11 @@
 package starter.pages;
 
+import net.serenitybdd.annotations.DefaultUrl;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import net.serenitybdd.core.Serenity;
 
 public class CategoriesPage extends PageObject {
 
@@ -21,7 +23,12 @@ public class CategoriesPage extends PageObject {
     private By successMessage = By.xpath("//div[contains(@class, 'alert') or contains(@class, 'toast')]");
 
     public void openCategoriesPage() {
-        openUrl("http://localhost:8080/ui/categories");
+        net.thucydides.model.util.EnvironmentVariables environmentVariables = net.serenitybdd.core.Serenity
+                .environmentVariables();
+        net.serenitybdd.model.environment.EnvironmentSpecificConfiguration config = net.serenitybdd.model.environment.EnvironmentSpecificConfiguration
+                .from(environmentVariables);
+        String baseUrl = config.getProperty("webdriver.base.url");
+        openUrl(baseUrl + "/categories");
     }
 
     public void verifySearchButtonVisibleAndEnabled() {
@@ -119,7 +126,6 @@ public class CategoriesPage extends PageObject {
     public void verifyCategoryDeleted() {
         waitFor(org.openqa.selenium.support.ui.ExpectedConditions.urlContains("/ui/categories"));
     }
-
 
     public void verifySuccessMessageDisplayed(String message) {
         $(successMessage).waitUntilVisible();

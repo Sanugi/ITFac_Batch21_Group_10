@@ -14,9 +14,13 @@ public class AddCategoryPage extends PageObject {
     private By successMessage = By.xpath("//div[contains(@class, 'alert') or contains(@class, 'toast')]");
 
     public void openAddCategoriesPage() {
-        openUrl("http://localhost:8080/ui/categories/add");
+        net.thucydides.model.util.EnvironmentVariables environmentVariables = net.serenitybdd.core.Serenity
+                .environmentVariables();
+        net.serenitybdd.model.environment.EnvironmentSpecificConfiguration config = net.serenitybdd.model.environment.EnvironmentSpecificConfiguration
+                .from(environmentVariables);
+        String baseUrl = config.getProperty("webdriver.base.url");
+        openUrl(baseUrl + "/categories/add");
     }
-
 
     public void verifyAddCategoryButtonVisible() {
         $(addCategoryButton).waitUntilVisible();

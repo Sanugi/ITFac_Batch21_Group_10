@@ -2,6 +2,8 @@ package starter.pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
+import net.serenitybdd.annotations.DefaultUrl;
+import net.serenitybdd.core.Serenity;
 
 public class LoginPage extends PageObject {
 
@@ -10,7 +12,10 @@ public class LoginPage extends PageObject {
     private By loginButton = By.cssSelector("button[type='submit']");
 
     public void openLoginPage() {
-        openUrl("http://localhost:8080/ui/login");
+        net.thucydides.model.util.EnvironmentVariables environmentVariables = net.serenitybdd.core.Serenity.environmentVariables();
+        net.serenitybdd.model.environment.EnvironmentSpecificConfiguration config = net.serenitybdd.model.environment.EnvironmentSpecificConfiguration.from(environmentVariables);
+        String baseUrl = config.getProperty("webdriver.base.url");
+        openUrl(baseUrl + "/login");
         $(usernameField).waitUntilVisible();
     }
 
@@ -32,10 +37,7 @@ public class LoginPage extends PageObject {
     }
 
     public void verifySuccessfulLogin() {
-        // Wait for the URL to contain "/ui/dashboard" to ensure redirection has
-        // happened
         waitFor(org.openqa.selenium.support.ui.ExpectedConditions.urlContains("/ui/dashboard"));
-
         String currentUrl = getDriver().getCurrentUrl();
         // After successful login, we should be on the dashboard page
         if (!currentUrl.contains("/ui/dashboard")) {

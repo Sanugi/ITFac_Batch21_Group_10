@@ -29,7 +29,7 @@ Feature: Manage User Categories
 
   Scenario: Verify Delete Action with Confirmation
     Given the user is on the categories page
-    When the user clicks the delete button for category for "102"
+    When the user clicks the delete button for category for "114"
     Then a confirmation popup should be displayed
     When the user clicks "OK" on the confirmation popup
     Then the category should be deleted

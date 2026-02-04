@@ -2,6 +2,7 @@ package starter.pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
+import net.serenitybdd.core.Serenity;
 
 public class DashboardPage extends PageObject {
 
