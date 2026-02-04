@@ -32,8 +32,22 @@ public class LoginStepDefinitions {
         loginPage.verifySuccessfulLogin();
     }
 
-    @Then("an error message should be displayed")
+    @Then("an error message should be displayed here that normal user login and admin login provide that")
     public void errorMessageShouldBeDisplayed() {
         loginPage.verifyLoginError();
+    }
+
+    @Given("the {string} is logged in")
+    public void userIsLoggedIn(String userType) {
+        loginPage.openLoginPage();
+        if (userType.equalsIgnoreCase("admin")) {
+            loginPage.enterUsername("admin");
+            loginPage.enterPassword("admin123");
+        } else {
+            loginPage.enterUsername("testuser");
+            loginPage.enterPassword("test123");
+        }
+        loginPage.clickLogin();
+        loginPage.verifySuccessfulLogin();
     }
 }
