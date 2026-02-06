@@ -1,11 +1,14 @@
 package starter.pages;
 
 import net.serenitybdd.annotations.DefaultUrl;
+import net.serenitybdd.core.pages.ClickStrategy;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import net.serenitybdd.core.Serenity;
+
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public class CategoriesPage extends PageObject {
 
@@ -13,12 +16,21 @@ public class CategoriesPage extends PageObject {
     private By nameInput = By.name("name");
     private By parentIdSelect = By.name("parentId");
     private By saveButton = By.xpath("//button[text()='Save']");
+    private By searchSubCategoryField = By.xpath("(//input[@placeholder='Search sub category'])[1]");
+    private By AllParentDropDownField = By.xpath("(//select[@name='parentId'])[1]");
+    private By outDoor = By.xpath("/html/body/div[1]/div/div[2]/div[2]/form/div[2]/select/option[3]");
+    private By pagination2 = By.xpath("/html/body/div[1]/div/div[2]/div[2]/nav/ul/li[3]/a");
+    private By categoryPagination = By.xpath("/html/body/div[1]/div/div[2]/div[2]/nav/ul");
+    private By paginationNextButton = By.xpath("(//a[normalize-space()='Next'])[1]");
+    private By paginationPreviousButton = By.xpath("/html/body/div[1]/div/div[2]/div[2]/nav/ul/li[1]/a");
+    private By categoryNameField = By.xpath("//*[@id=\"name\"]");
 
     // Using a more generic selector for the close button inside an alert/toast
     private By errorCloseButton = By.xpath("//div[contains(@class, 'alert') or contains(@class, 'toast')]//button");
     private By errorMessage = By.xpath("//div[contains(@class, 'alert') or contains(@class, 'toast')]");
 
     private By cancelButton = By.xpath("//a[contains(@href, '/ui/categories')]");
+    private By resetButton = By.xpath("/html/body/div[1]/div/div[2]/div[2]/form/div[3]/a[1]");
 
     private By successMessage = By.xpath("//div[contains(@class, 'alert') or contains(@class, 'toast')]");
 
@@ -31,9 +43,61 @@ public class CategoriesPage extends PageObject {
         openUrl(baseUrl + "/categories");
     }
 
+    public void openCategoriesPageOnPage(int pageNumber) {
+        net.thucydides.model.util.EnvironmentVariables environmentVariables =
+                net.serenitybdd.core.Serenity.environmentVariables();
+
+        net.serenitybdd.model.environment.EnvironmentSpecificConfiguration config =
+                net.serenitybdd.model.environment.EnvironmentSpecificConfiguration.from(environmentVariables);
+
+        String baseUrl = config.getProperty("webdriver.base.url");
+
+        openUrl(baseUrl + "/categories?page=" + pageNumber
+                + "&sortField=id&sortDir=asc&name=&parentId=");
+    }
+
     public void verifySearchButtonVisibleAndEnabled() {
         $(searchButton).shouldBeVisible();
         $(searchButton).shouldBeEnabled();
+    }
+
+    public void scrollToBottomOfCategoriesList() {
+        evaluateJavascript("arguments[0].scrollIntoView(true);",
+                $(categoryPagination).waitUntilVisible());
+    }
+
+    public void clickPagination2() {
+        $(pagination2).click();
+    }
+
+    public void clickPaginationNext() {
+        $(paginationNextButton).click();
+    }
+
+    public void clickPaginationPrevious() {
+        $(paginationPreviousButton).click();
+    }
+
+    public void editCategoryName(String newName) {
+        $(categoryNameField).waitUntilVisible();
+        $(categoryNameField).click();
+        $(categoryNameField).clear();          // removes existing value (e.g. "fungi")
+        $(categoryNameField).type(newName);    // enter updated name (e.g. "fung")
+    }
+
+    public void verifyResetButtonVisibleAndEnabled(){
+        $(resetButton).shouldBeVisible();
+        $(resetButton).shouldBeEnabled();
+    }
+
+    public void verifyAllParentsDropDownFieldVisibleAndEnabled(){
+        $(AllParentDropDownField).shouldBeVisible();
+        $(AllParentDropDownField).shouldBeEnabled();
+    }
+
+    public void verifySubCategoryFieldVisibleAndEnabled() {
+        $(searchSubCategoryField).shouldBeVisible();
+        $(searchSubCategoryField).shouldBeEnabled();
     }
 
     public void hoverOverSearchButton() {
@@ -56,6 +120,24 @@ public class CategoriesPage extends PageObject {
 
     public void clickSearchButton() {
         $(searchButton).click();
+    }
+
+    public void clickOutdoorOption() {
+        $(outDoor).click();
+    }
+
+    public void verifyDeleteButtonDisabledForCategory(String id) {
+        String deleteXpath = "//form[contains(@action, '/ui/categories/delete/" + id + "')]//button";
+        $(deleteXpath).shouldBeVisible();
+        $(deleteXpath).shouldNotBeEnabled();
+
+    }
+
+    public void verifyEditButtonDisabledForCategory(String id) {
+        String editXpath = "(//a[@title='Edit'])[2]";
+        $(editXpath).shouldBeVisible();
+        $(editXpath).shouldNotBeEnabled();
+
     }
 
     public void verifyUrlContains(String content) {
@@ -83,6 +165,12 @@ public class CategoriesPage extends PageObject {
     public void clickSaveButton() {
         $(saveButton).waitUntilClickable();
         $(saveButton).click();
+
+    }
+
+    public void clickDropDown() {
+        $(AllParentDropDownField).waitUntilClickable();
+        $(AllParentDropDownField).click();
 
     }
 
