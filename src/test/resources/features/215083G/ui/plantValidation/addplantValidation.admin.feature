@@ -7,7 +7,7 @@ Feature: Admin add plant - field validation
   Background:
     Given the "admin" is logged in
 
-  @ui @admin_PlantValidation_01
+  @ui @admin @PlantValidation_01
   Scenario: Plant name is required
     When the user is on the plants page
     And the admin leaves the plant name empty
@@ -17,7 +17,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Plant name is required" should be displayed below the name field
 
-  @ui @admin_PlantValidation_02
+  @ui @admin @PlantValidation_02
   Scenario: Plant name too short
     When the user is on the plants page
     And the admin enters plant name "Ar"
@@ -27,7 +27,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Plant name must be between 3 and 25 characters" should be displayed below the name field
 
-  @ui @admin_PlantValidation_03
+  @ui @admin @PlantValidation_03
   Scenario: Plant name too long
     When the user is on the plants page
     And the admin enters plant name "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -37,7 +37,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Plant name must be between 3 and 25 characters" should be displayed below the name field
 
-  @ui @admin_PlantValidation_04
+  @ui @admin @PlantValidation_04
   Scenario: Price is required
     When the user is on the plants page
     And the admin enters plant name "Rose Red"
@@ -47,7 +47,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Price is required" should be displayed below the price field
 
-  @ui @admin_PlantValidation_05
+  @ui @admin @PlantValidation_05
   Scenario: Price must be greater than 0
     When the user is on the plants page
     And the admin enters plant name "Tulip Pink"
@@ -57,7 +57,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Price must be greater than 0" should be displayed below the price field
 
-  @ui @admin_PlantValidation_06
+  @ui @admin @PlantValidation_06
   Scenario: Quantity is required
     When the user is on the plants page
     And the admin enters plant name "Orchid Moth"
@@ -67,7 +67,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Quantity is required" should be displayed below the quantity field
 
-  @ui @admin_PlantValidation_07
+  @ui @admin @PlantValidation_07
   Scenario: Quantity cannot be negative
     When the user is on the plants page
     And the admin enters plant name "Fern Boston"
@@ -77,7 +77,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Quantity cannot be negative" should be displayed below the quantity field
 
-  @ui @admin_PlantValidation_08
+  @ui @admin @PlantValidation_08
   Scenario: Quantity must be numeric
     When the user is on the plants page
     And the admin enters plant name "Cactus Ball"
@@ -87,7 +87,7 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Please enter a number" should be displayed below the quantity field
 
-  @ui @admin_PlantValidation_09
+  @ui @admin @PlantValidation_09
   Scenario: Category is required
     When the user is on the plants page
     And the admin enters plant name "Peace Lily"
@@ -97,12 +97,12 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Category is required" should be displayed below the category field
 
-  @ui @admin_PlantValidation_10
+  @ui @admin @PlantValidation_10
   Scenario: Sub-categories are visible in category dropdown
     When the user is on the plants page
     Then the category dropdown should show sub-categories "Orchids, Roses, Lilies, Tulips"
 
-  @ui @admin_PlantValidation_11
+  @ui @admin @PlantValidation_11
   Scenario: Multiple validation errors appear under respective fields
     When the user is on the plants page
     And the admin leaves the plant name empty
@@ -115,7 +115,7 @@ Feature: Admin add plant - field validation
     And validation error "Price must be greater than 0" should be displayed below the price field
     And validation error "Quantity cannot be negative" should be displayed below the quantity field
 
-  @ui @admin_PlantValidation_12
+  @ui @admin @PlantValidation_12
   Scenario: Cancel returns to plant list
     When the user is on the plants page
     And the admin clicks the cancel button
