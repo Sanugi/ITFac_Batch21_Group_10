@@ -1,4 +1,4 @@
-package starter.stepdefinitions;
+package starter.stepdefinitions.UI;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -43,6 +43,28 @@ public class CategoriesStepDefinitions {
     @When("the user enters category name {string}")
     public void userEntersCategoryName(String name) {
         categoriesPage.enterCategoryName(name);
+    }
+
+
+    @When("the user enters category name randomly {string}")
+    public void userEntersCategoryNameRandomly(String name) {
+        String processedName = starter.utils.ScenarioContext.processBodyWithRandomValues(name);
+
+        // If no {random} placeholder was used, add a random component as implied by the
+        // step name
+        if (processedName.equals(name)) {
+            processedName += new java.util.Random().nextInt(100);
+        }
+
+        // Ensure length is between 3 and 9 characters
+        if (processedName.length() > 9) {
+            processedName = processedName.substring(0, 9);
+        } else if (processedName.length() < 3) {
+            while (processedName.length() < 3) {
+                processedName += new java.util.Random().nextInt(10);
+            }
+        }
+        categoriesPage.enterCategoryName(processedName);
     }
 
     @When("the user clicks the search button")

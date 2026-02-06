@@ -4,7 +4,7 @@ Feature: User Login
   I want to log into the system
   So that I can access my account
 
-  @valid
+  @ui @valid
   Scenario: User Login with valid credentials
     Given the user is on the login page
     When the user enters username "testuser"
@@ -12,7 +12,7 @@ Feature: User Login
     And the user clicks the login button
     Then the user should be logged in successfully
 
-  @valid
+  @ui @valid
   Scenario: Admin Login with valid credentials
     Given the user is on the login page
     When the user enters username "Admin"
@@ -20,7 +20,7 @@ Feature: User Login
     And the user clicks the login button
     Then the user should be logged in successfully
 
-  @invalid
+  @ui @invalid
   Scenario: Login with invalid credentials
     Given the user is on the login page
     When the user enters username "wronguser"
