@@ -6,11 +6,121 @@ import io.cucumber.java.en.When;
 import starter.pages.CategoriesPage;
 import starter.pages.AddCategoryPage;
 import net.serenitybdd.annotations.Steps;
+import starter.pages.DashboardPage;
+import starter.pages.NavbarPage;
 
 public class CategoriesStepDefinitions {
 
     @Steps
     CategoriesPage categoriesPage;
+    DashboardPage dashboardPage;
+    NavbarPage navBar;
+
+
+    @When("the user clicks on the {string} option in the side navigation bar")
+    public void userClicksOnTheCategoriesOptionInTheSideNavigationBar(String categories){
+        if (categories.equals("Categories")) {
+            navBar.clickAddCategoryButton();
+        }
+    }
+
+    @Then("the Categories page should be displayed")
+    public void categoriesPageShouldBeDisplayed(){
+        categoriesPage.openCategoriesPage();
+    }
+
+    @Given("subcategory search field is visible")
+    public void subcategorySearchFieldIsVisible(){
+        categoriesPage.verifySubCategoryFieldVisibleAndEnabled();
+    }
+
+    @Then("the url should be {string}")
+    public void urlShouldBe(String content){
+        categoriesPage.verifyUrlContains(content);
+    }
+
+    @Given("the All Parents dropdown field is visible")
+    public void allParentsDropDownFieldIsVisible(){
+        categoriesPage.verifyAllParentsDropDownFieldVisibleAndEnabled();
+    }
+
+    @Given("the user is on the page {string}")
+    public void userIsOnPage(String pageNumber) {
+        categoriesPage.openCategoriesPageOnPage(Integer.parseInt(pageNumber));
+    }
+
+    @When("the user clicks the dropdown field")
+    public void userClicksTheDropDownField(){
+        categoriesPage.clickDropDown();
+    }
+
+    @When("the user clicks the \"Outdoor\" in the dropdown list")
+    public void userClicksTheCategoryInTheDropDownList(){
+        categoriesPage.clickOutdoorOption();
+    }
+
+    @When("the user clicks on the page 2")
+    public void userClicksOnThePage(){
+        categoriesPage.clickPagination2();
+    }
+
+    @When("the user click on the next button")
+    public void userClickOnTheNextButton(){
+        categoriesPage.clickPaginationNext();
+    }
+
+    @When("the user click on the previous button")
+    public void userClickOnThePreviousButton(){
+        categoriesPage.clickPaginationPrevious();
+    }
+
+    @When("the user clicks the Reset button")
+    public void userClicksTheResetButton(){
+        categoriesPage.verifyResetButtonVisibleAndEnabled();
+
+    }
+
+    @When("the user navigates to the bottom of the categories list")
+    public void userNavigatesToBottomOfCategoriesList() {
+        categoriesPage.scrollToBottomOfCategoriesList();
+    }
+
+    @When("the user edits the category name to {string}")
+    public void userEditsCategoryName(String newName) {
+        categoriesPage.editCategoryName(newName);
+    }
+
+    @Then("the Delete button should be disabled for category {string}")
+    public void deleteButtonShouldDisable (String id) {
+
+       categoriesPage.verifyDeleteButtonDisabledForCategory(id);
+    }
+
+    @Then("the Edit button should be disabled for category {string}")
+    public void editButtonDisabled (String id){
+        categoriesPage.verifyEditButtonDisabledForCategory(id);
+    }
+
+    @When("the user enters category name randomly {string}")
+    public void userEntersCategoryNameRandomly(String name) {
+        String processedName = starter.utils.ScenarioContext.processBodyWithRandomValues(name);
+
+        // If no {random} placeholder was used, add a random component as implied by the
+        // step name
+        if (processedName.equals(name)) {
+            processedName += new java.util.Random().nextInt(100);
+        }
+
+        // Ensure length is between 3 and 9 characters
+        if (processedName.length() > 9) {
+            processedName = processedName.substring(0, 9);
+        } else if (processedName.length() < 3) {
+            while (processedName.length() < 3) {
+                processedName += new java.util.Random().nextInt(10);
+            }
+        }
+        categoriesPage.enterCategoryName(processedName);
+    }
 
     @Given("the user is on the categories page")
     public void userIsOnCategoriesPage() {
@@ -43,28 +153,6 @@ public class CategoriesStepDefinitions {
     @When("the user enters category name {string}")
     public void userEntersCategoryName(String name) {
         categoriesPage.enterCategoryName(name);
-    }
-
-
-    @When("the user enters category name randomly {string}")
-    public void userEntersCategoryNameRandomly(String name) {
-        String processedName = starter.utils.ScenarioContext.processBodyWithRandomValues(name);
-
-        // If no {random} placeholder was used, add a random component as implied by the
-        // step name
-        if (processedName.equals(name)) {
-            processedName += new java.util.Random().nextInt(100);
-        }
-
-        // Ensure length is between 3 and 9 characters
-        if (processedName.length() > 9) {
-            processedName = processedName.substring(0, 9);
-        } else if (processedName.length() < 3) {
-            while (processedName.length() < 3) {
-                processedName += new java.util.Random().nextInt(10);
-            }
-        }
-        categoriesPage.enterCategoryName(processedName);
     }
 
     @When("the user clicks the search button")
@@ -163,4 +251,5 @@ public class CategoriesStepDefinitions {
     public void successDeleteMessageShouldBeDisplayed(String message) {
         categoriesPage.verifySuccessMessageDisplayed(message);
     }
+
 }
