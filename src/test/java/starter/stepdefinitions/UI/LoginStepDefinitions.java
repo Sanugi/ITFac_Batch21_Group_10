@@ -1,4 +1,4 @@
-package starter.stepdefinitions;
+package starter.stepdefinitions.UI;
 
 import io.cucumber.java.en.*;
 import starter.pages.LoginPage;

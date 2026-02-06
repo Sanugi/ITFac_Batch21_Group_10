@@ -72,6 +72,7 @@ public class CategoriesPage extends PageObject {
         $(editButton).click();
     }
 
+
     public void verifyRedirectToEditCategoryPage(String id) {
         waitFor(org.openqa.selenium.support.ui.ExpectedConditions.urlContains("/ui/categories/edit/" + id));
         String currentUrl = getDriver().getCurrentUrl();
