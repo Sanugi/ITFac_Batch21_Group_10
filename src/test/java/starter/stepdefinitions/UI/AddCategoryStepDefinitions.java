@@ -1,4 +1,4 @@
-package starter.stepdefinitions;
+package starter.stepdefinitions.UI;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -46,6 +46,11 @@ public class AddCategoryStepDefinitions {
 
     @Then("a success message {string} should be displayed")
     public void successMessageShouldBeDisplayed(String message) {
+        addCategoryPage.verifySuccessMessageDisplayed(message);
+    }
+
+    @Then("a success message {string} should be displayed here that {string} {string} like random genarate")
+    public void successMessageShouldBeDisplayedWithExamples(String message, String ex1, String ex2) {
         addCategoryPage.verifySuccessMessageDisplayed(message);
     }
 }
