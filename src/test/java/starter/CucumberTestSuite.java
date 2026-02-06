@@ -1,15 +1,14 @@
 package starter;
 
-import org.junit.platform.suite.api.ConfigurationParameter;
-import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
-
-import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
-@IncludeEngines("cucumber")
-@SelectClasspathResource("/features")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "io.cucumber.core.plugin.SerenityReporter")
+@SuiteDisplayName("Complete Test Suite - UI then API")
+@SelectClasses({
+        UITestSuite.class,
+        OrderedAPITestSuite.class
+})
 public class CucumberTestSuite {
 }

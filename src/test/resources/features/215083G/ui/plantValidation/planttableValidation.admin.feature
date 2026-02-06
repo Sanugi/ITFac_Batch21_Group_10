@@ -7,7 +7,7 @@ Feature: Admin serach a plant and search reset
   Background:
     Given the "admin" is logged in
 
-@ui @admin_PlantSearch_Reset_01
+@ui @admin @PlantSearch_Reset_01
   Scenario: Reset clears search and shows full list
     Given the user is on the plants page
     And the admin searches plant name "Red Rose"
@@ -15,7 +15,7 @@ Feature: Admin serach a plant and search reset
     Then the plant search field should be empty
     And the full list of plants should be displayed
 
-@ui @admin_PlantSearch_Result_02
+@ui @admin @PlantSearch_Result_02
   Scenario: Search shows Beetroot in the table
     Given the user is on the plants page
     When the admin searches plant name "Beetroot"
