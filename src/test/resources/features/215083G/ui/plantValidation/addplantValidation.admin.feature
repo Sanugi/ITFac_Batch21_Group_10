@@ -97,12 +97,12 @@ Feature: Admin add plant - field validation
     And the admin clicks the save button
     Then validation error "Category is required" should be displayed below the category field
 
-  @ui @admin_addPlant @TC_UI_ADM_10
+  @ui @admin_PlantValidation_10
   Scenario: Sub-categories are visible in category dropdown
     When the user is on the plants page
     Then the category dropdown should show sub-categories "Orchids, Roses, Lilies, Tulips"
 
-  @ui @admin_addPlant @TC_UI_ADM_11
+  @ui @admin_PlantValidation_11
   Scenario: Multiple validation errors appear under respective fields
     When the user is on the plants page
     And the admin leaves the plant name empty
@@ -115,7 +115,7 @@ Feature: Admin add plant - field validation
     And validation error "Price must be greater than 0" should be displayed below the price field
     And validation error "Quantity cannot be negative" should be displayed below the quantity field
 
-  @ui @admin_addPlant @TC_UI_ADM_12
+  @ui @admin_PlantValidation_12
   Scenario: Cancel returns to plant list
     When the user is on the plants page
     And the admin clicks the cancel button
