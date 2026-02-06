@@ -2,6 +2,7 @@ Feature: Dashboard Navigation
 
   Background:
     Given the "testuser" is logged in
+
   @ui @user @TC_UI_USR_01
   Scenario: Navigate to Categories page
     Given the user is on the dashboard page

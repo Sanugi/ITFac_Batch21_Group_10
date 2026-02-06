@@ -2,6 +2,7 @@ Feature: Manage User Categories
 
   Background:
     Given the "testuser" is logged in
+
   @ui @user @TC_UI_USR_03
   Scenario: Verify Search Button Hover
     Given the user is on the categories page
@@ -16,7 +17,12 @@ Feature: Manage User Categories
     And the user clicks the search button
     Then the url should contain "name=Toxic&parentId=1"
 
- @ui @user @TC_UI_USR_05
+
+
+    # ============================================================================
+              #BUG DETECTION TEST - Documents known UI bug
+    # ============================================================================
+  @ui @user @TC_UI_USR_05
   Scenario: Dismiss Error Message on Edit Category
     Given the user is on the categories page
     When the user clicks the edit button for category "96"

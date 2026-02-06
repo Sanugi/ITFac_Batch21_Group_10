@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(plugin = {
-        "pretty" }, features = "src/test/resources/features", glue = "starter", tags = "@api and @user")
+                "pretty" }, features = "src/test/resources/features", glue = "starter", tags = "@api and @user")
 public class UserAPITestSuite {
 }
