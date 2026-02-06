@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-                UserAPITestSuite.class,
-                AdminAPITestSuite.class
+        UserAPITestSuite.class,
+        AdminAPITestSuite.class
 
 })
 public class OrderedAPITestSuite {

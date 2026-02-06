@@ -147,4 +147,28 @@ public class CategoriesStepDefinitions {
         System.out.println("  - Response: " + responseBody);
     }
 
+
+    @Then("only categories with name containing {string} should be returned")
+    public void only_categories_with_name_containing_should_be_returned(String expectedName) {
+        Response response = SerenityRest.lastResponse();
+
+        List<String> categoryNames = response.jsonPath().getList("name");
+
+        assertThat("Category list should not be empty",
+                categoryNames, not(empty()));
+
+        for (String name : categoryNames) {
+            assertThat(
+                    "Category name does not contain expected value: " + expectedName,
+                    name.toLowerCase(),
+                    containsString(expectedName.toLowerCase())
+            );
+        }
+
+        System.out.println("✓ Categories filtered correctly by name: " + expectedName);
+        System.out.println("✓ Returned names: " + categoryNames);
+    }
+
+
+
 }

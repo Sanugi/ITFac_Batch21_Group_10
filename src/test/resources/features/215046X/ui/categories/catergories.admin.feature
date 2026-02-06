@@ -1,7 +1,8 @@
-Feature: Manage Admin Categories
+Feature: Manage User Categories
 
   Background:
     Given the "admin" is logged in
+
   @ui @admin @TC_UI_ADM_01
   Scenario: Verify Add Category Button is Clickable
     Given the user is on the categories page
@@ -12,7 +13,7 @@ Feature: Manage Admin Categories
   @ui @admin @TC_UI_ADM_02
   Scenario: Verify Adding a New Category
     Given the user is on the AddCategories page
-    When the user enters category name randomly "se"
+    When the user enters category name "seed"
     And the user selects parent category "Seeds"
     And the user clicks the save button
     Then the user should be redirected to the categories page from add category
@@ -33,7 +34,7 @@ Feature: Manage Admin Categories
   @ui @admin @TC_UI_ADM_05
   Scenario: Verify Delete Action with Confirmation
     Given the user is on the categories page
-    When the user clicks the delete button for category for "284"
+    When the user clicks the delete button for category for "95"
     Then a confirmation popup should be displayed
     When the user clicks "OK" on the confirmation popup
     Then the category should be deleted
