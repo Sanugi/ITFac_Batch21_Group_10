@@ -2,12 +2,13 @@ Feature: Manage User Categories
 
   Background:
     Given the "testuser" is logged in
-
+  @ui @user @TC_UI_USR_03
   Scenario: Verify Search Button Hover
     Given the user is on the categories page
     Then the search button should be visible and enabled
     When the user hovers over the search button
 
+  @ui @user @TC_UI_USR_04
   Scenario: Verify Search Button clickable
     Given the user is on the categories page
     When the user enters category name "Toxic"
@@ -15,9 +16,10 @@ Feature: Manage User Categories
     And the user clicks the search button
     Then the url should contain "name=Toxic&parentId=1"
 
+ @ui @user @TC_UI_USR_05
   Scenario: Dismiss Error Message on Edit Category
     Given the user is on the categories page
-    When the user clicks the edit button for category "109"
+    When the user clicks the edit button for category "96"
     And the user clicks the save button
     Then an error message should be displayed
     When the user clicks the close icon on the error message
