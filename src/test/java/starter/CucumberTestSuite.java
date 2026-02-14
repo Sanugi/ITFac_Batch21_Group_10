@@ -1,13 +1,14 @@
 package starter;
-import io.cucumber.junit.CucumberOptions;
-import net.serenitybdd.cucumber.CucumberWithSerenity;
-import org.junit.runner.RunWith;
 
-@RunWith(CucumberWithSerenity.class)
-@CucumberOptions(
-        plugin = {"pretty"},
-        features = "src/test/resources/features",
-        glue = "starter"
-)
+import org.junit.platform.suite.api.SelectClasses;
+import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.SuiteDisplayName;
+
+@Suite
+@SuiteDisplayName("Complete Test Suite - UI then API")
+@SelectClasses({
+        UITestSuite.class,
+        OrderedAPITestSuite.class
+})
 public class CucumberTestSuite {
 }
